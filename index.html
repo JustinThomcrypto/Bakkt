@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Client Activation and Success Hub</title>
+<meta name="description" content="An interactive client activation and success work sample for institutional trading and payments partners. Work sample by Justin Thom.">
+
+<!-- Google Analytics: paste this repo's measurement ID below before publishing
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --navy:#0E2033;
+  --navy-2:#173350;
+  --navy-3:#28496b;
+  --bronze:#A9782F;
+  --bronze-lt:#C9A365;
+  --paper:#F5F2EC;
+  --paper-2:#EDE8DE;
+  --ink:#1B1B1B;
+  --muted:#5E6B78;
+  --rule:#D5CEC1;
+  --green:#2E6F4E;
+  --amber:#B5862B;
+  --red:#9B3226;
+  --white:#FFFFFF;
+  --maxw:1180px;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Helvetica,Arial,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+}
+h1,h2,h3,h4{margin:0;font-weight:600;letter-spacing:-0.01em}
+p{margin:0 0 1rem}
+a{color:var(--navy-2)}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+.masthead{background:var(--navy);color:var(--paper);border-bottom:3px solid var(--bronze)}
+.masthead-inner{
+  max-width:var(--maxw);margin:0 auto;padding:18px 24px;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;
+}
+.mark{display:flex;align-items:center;gap:10px}
+.mark svg{display:block}
+.mark-txt{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--bronze-lt);
+}
+.mast-name{text-align:center;font-size:17px;font-weight:600;letter-spacing:0.01em;line-height:1.25}
+.mast-role{text-align:right;line-height:1}
+.cologo{height:24px;width:auto;display:inline-block;vertical-align:middle}
+.cologo-fallback{
+  display:none;font-family:"IBM Plex Sans",sans-serif;font-size:20px;font-weight:600;
+  letter-spacing:0.01em;color:var(--paper);
+}
+
+.appstrip{background:var(--paper);border-bottom:1px solid var(--rule)}
+.appstrip div{
+  max-width:var(--maxw);margin:0 auto;padding:11px 24px;display:flex;
+  flex-wrap:wrap;gap:10px;justify-content:space-between;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:0.13em;text-transform:uppercase;color:var(--muted);
+}
+.appstrip span:first-child{color:var(--navy);font-weight:600}
+.disclaimer{
+  background:var(--navy-2);color:#D8E0E8;font-size:12.5px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+}
+.disclaimer div{max-width:var(--maxw);margin:0 auto;padding:9px 24px}
+.disclaimer b{color:var(--bronze-lt);font-weight:500}
+
+.hero{background:var(--navy);color:var(--paper);padding:44px 0 0}
+.hero h1{
+  font-family:"IBM Plex Serif",Georgia,serif;font-weight:500;
+  font-size:clamp(27px,4.4vw,46px);line-height:1.1;letter-spacing:-0.015em;
+}
+@media (min-width:1050px){.hero h1{white-space:nowrap}}
+.hero .lede{color:#C5CFDA;margin-top:14px;font-size:15.5px}
+.hero .lede strong{color:var(--white);font-weight:600}
+
+.rail-title{
+  margin-top:34px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:0.13em;text-transform:uppercase;color:var(--bronze-lt);
+}
+.rail{margin:12px 0 0;padding-bottom:40px;overflow-x:auto}
+.rail-inner{display:flex;gap:0;min-width:980px}
+.gate{flex:1;position:relative;padding:0 6px}
+.gate-bar{height:6px;background:var(--navy-3);border-radius:2px}
+.gate.has .gate-bar{background:var(--bronze)}
+.gate-n{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  color:#8A9BAC;margin-top:10px;letter-spacing:0.08em;
+}
+.gate-label{font-size:12.5px;color:#C5CFDA;line-height:1.3;margin-top:3px;min-height:46px}
+.gate-count{
+  margin-top:8px;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:12px;color:var(--bronze-lt);
+}
+.gate-count span{color:#7E8FA0}
+
+.tabsbar{background:var(--paper-2);border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:20}
+.tabs{max-width:var(--maxw);margin:0 auto;padding:0 24px;display:flex;gap:2px;overflow-x:auto}
+.tab{
+  appearance:none;border:0;background:transparent;cursor:pointer;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+  letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);
+  padding:15px 18px;border-bottom:3px solid transparent;white-space:nowrap;
+}
+.tab:hover{color:var(--navy)}
+.tab[aria-selected="true"]{color:var(--navy);border-bottom-color:var(--bronze);font-weight:600}
+.tab:focus-visible{outline:2px solid var(--bronze);outline-offset:-2px}
+
+section.panel{padding:40px 0 56px}
+.sec-head{border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:26px}
+.sec-head h2{font-size:23px}
+.sec-head p{margin:8px 0 0;color:var(--muted);font-size:15px}
+
+.tbl-scroll{overflow-x:auto;border:1px solid var(--rule);background:var(--white)}
+table{border-collapse:collapse;width:100%;min-width:1020px;font-size:14px}
+thead th{
+  background:var(--navy);color:#D8E0E8;text-align:left;font-weight:500;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:0.1em;text-transform:uppercase;padding:11px 12px;vertical-align:bottom;
+}
+tbody td{border-top:1px solid var(--rule);padding:11px 12px;vertical-align:top}
+tbody tr:nth-child(even){background:#FBFAF7}
+tr.row-click{cursor:pointer}
+tr.row-click:hover{background:var(--paper-2)}
+.acct{font-weight:600;color:var(--navy)}
+.acct small{display:block;font-weight:400;color:var(--muted);font-size:12.5px}
+.num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;white-space:nowrap}
+
+.pill{
+  display:inline-block;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:0.07em;text-transform:uppercase;
+  padding:3px 8px;border:1px solid;border-radius:2px;white-space:nowrap;
+}
+.pill.g{color:var(--green);border-color:var(--green);background:#EAF2ED}
+.pill.a{color:var(--amber);border-color:var(--amber);background:#F7F0DF}
+.pill.r{color:var(--red);border-color:var(--red);background:#F6E9E6}
+.pill.n{color:var(--muted);border-color:var(--rule);background:var(--paper-2)}
+
+.owner{font-size:12.5px;color:var(--muted)}
+.days{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px}
+.days.over{color:var(--red);font-weight:600}
+
+.tags{display:flex;flex-direction:column;gap:4px}
+.tag{
+  font-size:12px;line-height:1.3;border-left:3px solid var(--rule);
+  padding:1px 0 1px 7px;color:var(--muted);
+}
+.tag.live{border-left-color:var(--green);color:var(--ink)}
+.tag.pilot{border-left-color:var(--amber);color:var(--ink)}
+.tag i{font-style:normal;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);display:block}
+
+.selector{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.chip{
+  appearance:none;cursor:pointer;background:var(--white);border:1px solid var(--rule);
+  padding:8px 13px;font-family:"IBM Plex Sans",sans-serif;font-size:13.5px;color:var(--navy);
+}
+.chip[aria-pressed="true"]{background:var(--navy);color:var(--paper);border-color:var(--navy)}
+.chip:focus-visible{outline:2px solid var(--bronze);outline-offset:2px}
+
+.summary{
+  background:var(--white);border:1px solid var(--rule);border-left:4px solid var(--bronze);
+  padding:20px 22px;margin-bottom:24px;
+}
+.summary h3{font-size:19px;color:var(--navy)}
+.summary .meta{color:var(--muted);font-size:13.5px;margin-top:4px}
+.summary p.goal{margin:14px 0 0;max-width:80ch;font-size:15px}
+.kpis{display:flex;flex-wrap:wrap;gap:28px;margin-top:18px;padding-top:16px;border-top:1px solid var(--rule)}
+.kpi-l{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);
+}
+.kpi-v{font-size:19px;font-weight:600;color:var(--navy);font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+.stages{border:1px solid var(--rule);background:var(--white)}
+.stage{border-bottom:1px solid var(--rule)}
+.stage:last-child{border-bottom:0}
+.stage-btn{
+  width:100%;display:grid;grid-template-columns:34px 1fr auto;gap:14px;align-items:center;
+  background:transparent;border:0;cursor:pointer;text-align:left;padding:13px 16px;
+  font-family:inherit;font-size:15px;color:var(--ink);
+}
+.stage-btn:hover{background:#FBFAF7}
+.stage-btn:focus-visible{outline:2px solid var(--bronze);outline-offset:-2px}
+.stage-idx{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--muted)}
+.stage-name{font-weight:500}
+.stage-name em{font-style:normal;display:block;font-size:12.5px;color:var(--muted);font-weight:400}
+.marker{width:10px;height:10px;border-radius:50%;border:2px solid var(--rule);display:inline-block}
+.st-complete .marker{background:var(--green);border-color:var(--green)}
+.st-active .marker{background:var(--bronze);border-color:var(--bronze)}
+.st-blocked .marker{background:var(--red);border-color:var(--red)}
+.st-pending .marker{background:var(--white)}
+.st-na .marker{background:var(--paper-2);border-color:var(--rule)}
+.st-na .stage-name{color:var(--muted)}
+.stage-detail{display:none;padding:2px 16px 20px 62px;background:#FBFAF7;border-top:1px dashed var(--rule)}
+.stage.open .stage-detail{display:block}
+.dl{display:grid;grid-template-columns:150px 1fr;gap:6px 18px;font-size:14px;margin-top:14px}
+.dl dt{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:0.09em;text-transform:uppercase;color:var(--muted);padding-top:3px;
+}
+.dl dd{margin:0}
+.next{color:var(--navy);font-weight:600}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:20px}
+.card{background:var(--white);border:1px solid var(--rule);padding:20px 22px}
+.card h4{font-size:16px;color:var(--navy);margin-bottom:10px}
+.card ul{margin:0;padding-left:18px;font-size:14.5px}
+.card li{margin-bottom:7px}
+.card li:last-child{margin-bottom:0}
+
+.metric{margin-bottom:16px}
+.metric-top{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;gap:12px}
+.metric-top b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:600;color:var(--navy)}
+.bar{height:7px;background:var(--paper-2);margin-top:6px;position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--navy-2);display:block}
+.bar i.good{background:var(--green)}
+.bar i.warn{background:var(--amber)}
+.bar-note{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+.roi{width:100%;border-collapse:collapse;min-width:640px;font-size:14.5px}
+.roi th{
+  text-align:left;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);
+  padding:0 12px 8px;border-bottom:1px solid var(--rule);font-weight:500;
+}
+.roi td{padding:11px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+.roi td.b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:600;color:var(--navy);white-space:nowrap}
+
+.note{
+  background:var(--paper-2);border-left:3px solid var(--navy-3);
+  padding:14px 18px;font-size:14px;color:#44505C;margin-top:26px;
+}
+.note b{color:var(--navy)}
+
+.method{background:var(--paper-2);border-top:1px solid var(--rule);padding:34px 0 40px}
+.method h3{font-size:17px;color:var(--navy);margin-bottom:12px}
+.method p{margin:0;font-size:14px;color:#44505C}
+.method a{color:var(--navy-2);text-underline-offset:2px}
+
+footer{background:var(--navy);color:#9FB0C0;font-size:13px;padding:26px 0 34px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between}
+
+@media (max-width:760px){
+  .masthead-inner{grid-template-columns:1fr;text-align:left;gap:6px}
+  .mast-name,.mast-role{text-align:left}
+  .dl{grid-template-columns:1fr}
+  .stage-detail{padding-left:20px}
+  .kpis{gap:18px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="mark"><span class="mark-txt">Work sample</span></div>
+    <div class="mast-name">Client Activation and Success Hub</div>
+    <div class="mast-role">
+      <img class="cologo" src="assets/bakkt-logo.svg" alt="Bakkt"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+      <span class="cologo-fallback">Bakkt</span>
+    </div>
+  </div>
+</header>
+
+<div class="appstrip">
+  <div><span>Application for the Client Success Manager role</span><span>Prepared by Justin Thom</span></div>
+</div>
+
+<div class="disclaimer">
+  <div><b>Illustrative portfolio snapshot as of September 23, 2026.</b> All account names, contacts, dates, volumes, and metrics are fictional. Nothing reflects actual Bakkt client data or company projections.</div>
+</div>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>Getting clients from signed to live.</h1>
+    <p class="lede">Signing a client is only the beginning. Before going live, institutional partners typically move through onboarding, compliance review, technical integration, treasury setup, and production approval. <strong>This simulated hub shows how a Client Success Manager can help coordinate those workstreams, identify potential delays early, and move trading and payments partners from agreement through activation to measurable results, including user adoption and transaction volume.</strong></p>
+    <div class="rail-title">Accounts by current activation stage</div>
+    <div class="rail" id="rail"></div>
+  </div>
+</div>
+
+<div class="tabsbar">
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-panel="p-portfolio">Portfolio</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="p-activation">Activation tracker</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="p-action">Action center</button>
+    <button class="tab" role="tab" aria-selected="false" data-panel="p-qbr">Client Review</button>
+  </div>
+</div>
+
+<section class="panel" id="p-portfolio">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Client Portfolio</h2>
+      <p>Overview of five simulated clients across trading, stablecoin settlement, cross-border payments, and embedded finance. Each account is tracked by activation stage, current blocker, owner, health, and progress toward its launch or growth targets. Select an account to view its detailed activation plan.</p>
+    </div>
+    <div class="tbl-scroll">
+      <table id="portfolio-table">
+        <thead>
+          <tr>
+            <th>Account</th>
+            <th>Lifecycle stage</th>
+            <th>Launch status</th>
+            <th>Days in stage</th>
+            <th>Current blocker or dependency</th>
+            <th>Owner</th>
+            <th>Health</th>
+            <th>Monthly TTV vs. target</th>
+            <th>Products</th>
+            <th>Renewal</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="note">
+      <b>How account health is assessed.</b> Account health summarizes whether each relationship is on track. Before launch, it reflects milestone progress, unresolved blockers, and time in stage. After launch, it reflects adoption, performance against TTV or MAU targets, service issues, and renewal risk.
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p-activation" hidden>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Activation Tracker</h2>
+      <p>Tracks each client from signed agreement through launch and growth. Each applicable stage includes an owner, target date, outstanding requirements, latest client update, and next action. Stages that do not apply are clearly marked.</p>
+    </div>
+    <div class="selector" id="selector"></div>
+    <div id="summary"></div>
+    <div class="stages" id="stages"></div>
+  </div>
+</section>
+
+<section class="panel" id="p-action" hidden>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Cross-Functional Action Center</h2>
+      <p>Tracks active and recently resolved client issues across compliance, engineering, treasury, operations, and product, including ownership, client expectations, escalation status, and follow-up.</p>
+    </div>
+    <div class="tbl-scroll">
+      <table id="action-table">
+        <thead>
+          <tr>
+            <th>Issue or action</th>
+            <th>Account</th>
+            <th>Internal owner</th>
+            <th>Latest client update</th>
+            <th>Committed date</th>
+            <th>Escalation</th>
+            <th>Client follow-up</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p-qbr" hidden>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Quarterly Client Review: Halcyon Digital Markets</h2>
+      <p>An example of how I would review goals, performance, delivered value, unresolved issues, and next-quarter priorities with a live client.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h4>Goals agreed at onboarding</h4>
+        <ul>
+          <li>Replace two bilateral liquidity relationships with a single API integration by end of Q1.</li>
+          <li>Reach 20 million dollars of monthly notional across spot and OTC within two quarters.</li>
+          <li>Cut settlement breaks on crypto legs to under one per hundred tickets.</li>
+          <li>Keep U.S. dollar prefunding under a defined internal ceiling.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>What launched this quarter</h4>
+        <ul>
+          <li>Trading infrastructure in production across two desks, 62 named users.</li>
+          <li>Digital asset OTC enabled for block tickets above a set size.</li>
+          <li>Stablecoin settlement enabled for end-of-day netting, in pilot with the treasury team.</li>
+          <li>Two operations staff trained on the break and exception workflow.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="height:22px"></div>
+
+    <div class="grid2">
+      <div class="card">
+        <h4>Volume against target</h4>
+        <div class="metric">
+          <div class="metric-top"><span>Monthly transacting volume</span><b>$18.4M of $22.0M</b></div>
+          <div class="bar"><i class="warn" style="width:84%"></i></div>
+          <div class="bar-note">84 percent of target. The gap is concentrated in one desk that has not yet moved its OTC block flow.</div>
+        </div>
+        <div class="metric">
+          <div class="metric-top"><span>Month-over-month growth</span><b>+11% vs. +15% target</b></div>
+          <div class="bar"><i class="good" style="width:73%"></i></div>
+          <div class="bar-note">Third consecutive month of growth since the OTC desk went live.</div>
+        </div>
+        <div class="metric">
+          <div class="metric-top"><span>Transaction success rate</span><b>99.4%</b></div>
+          <div class="bar"><i class="good" style="width:99%"></i></div>
+          <div class="bar-note">Nine failures in the quarter, seven traced to a single client-side credential rotation.</div>
+        </div>
+        <div class="metric" style="margin-bottom:0">
+          <div class="metric-top"><span>Average settlement time</span><b>4.2 min vs. ~2 hr before</b></div>
+          <div class="bar-note">Measured against the bilateral relationships this integration replaced. Lower is better.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h4>What we solved, and what is still open</h4>
+        <ul>
+          <li><b>Solved.</b> Credential rotation failures. Root caused with engineering, client runbook updated, zero recurrences in six weeks.</li>
+          <li><b>Solved.</b> End-of-day reporting mismatch against the client's internal ledger, corrected in the file spec.</li>
+          <li><b>Open.</b> OTC block flow is still routed bilaterally. Client is waiting on an internal risk sign-off, not on us. Owner is the client's CRO, revisit in November.</li>
+          <li><b>Open.</b> Two support cases above the agreed response window in August, both during a market-wide volatility event. Staffing pattern raised internally.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="height:30px"></div>
+    <h3 style="color:var(--navy);font-size:18px;margin-bottom:14px">Value delivered</h3>
+    <div class="tbl-scroll" style="border:0">
+      <table class="roi">
+        <thead>
+          <tr><th>Measure</th><th>Before</th><th>Now</th><th>What it means for the client</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Settlement time, crypto leg</td><td class="b">~2 hr</td><td class="b">4.2 min</td><td>Capital becomes available sooner for reuse during the trading day.</td></tr>
+          <tr><td>U.S. dollar prefunding held</td><td class="b">100%</td><td class="b">55%</td><td>Working capital released back to the trading book.</td></tr>
+          <tr><td>Failed or delayed settlements</td><td class="b">2.1%</td><td class="b">0.6%</td><td>Fewer manual breaks for a two-person operations team.</td></tr>
+          <tr><td>Counterparty integrations maintained</td><td class="b">3</td><td class="b">1</td><td>One API, one reconciliation file, one support path.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="height:30px"></div>
+    <div class="grid2">
+      <div class="card" style="border-left:4px solid var(--bronze)">
+        <h4>Renewal: March 31, 2027</h4>
+        <ul>
+          <li>Opened at the December review rather than in February, so neither side negotiates against a deadline.</li>
+          <li>To be true by December: stablecoin settlement out of pilot, volume within ten percent of plan or the plan reset, and no repeat of the August response time misses.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Next quarter plan</h4>
+        <ul>
+          <li>Move stablecoin settlement from pilot to production for all end-of-day netting. Target mid Q4.</li>
+          <li>Second training session for the newly hired operations analyst.</li>
+          <li>Support the client's internal risk paper on moving the OTC block flow, without owning its timeline.</li>
+          <li>Agree the volume plan for next year at the December review, alongside the renewal.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="height:20px"></div>
+    <div class="card">
+      <h4>Where the relationship could grow</h4>
+      <ul>
+        <li>The client settles supplier invoices into two Asian markets through its bank. Cross-border payments could be a natural second product, subject to confirming corridor coverage, client eligibility, and applicable approvals.</li>
+        <li>Their retail affiliate has asked about an embedded buy flow. That is a Bakkt Widget conversation, and it belongs to sales, so it gets flagged rather than pitched here.</li>
+        <li>Neither is proposed at this review. Both are noted, with the introduction offered only once the stablecoin settlement rollout is complete.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="method">
+  <div class="wrap">
+    <h3>Methodology and sources</h3>
+    <p>All clients and data are fictional. The 11-stage workflow is my proposed model, not Bakkt's internal process. Product details are based on public materials reviewed September 23, 2026: <a href="https://www.sec.gov/Archives/edgar/data/1820302/000162828026055276/a2026-0810xbkktxq226earn.htm" target="_blank" rel="noopener">Q2 2026 results</a>, <a href="https://investors.bakkt.com/news-releases/news-release-details/bakkt-expands-global-commercial-team-growth-accelerates-raises" target="_blank" rel="noopener">September 2026 update</a>, and <a href="https://www.sec.gov/Archives/edgar/data/1820302/000162828026019870/bakkt-20251231.htm" target="_blank" rel="noopener">2025 Form 10-K</a>. TTV is a notional flow measure, not revenue or profit. Product availability depends on applicable regulatory and partner requirements. This work sample is not affiliated with or endorsed by Bakkt.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>Justin Thom &nbsp;/&nbsp; Client Success Manager application &nbsp;/&nbsp; Bakkt</div>
+    <div>Independent application work sample. Not affiliated with or endorsed by Bakkt.</div>
+  </div>
+</footer>
+
+<script>
+var GATES = [
+  ["Commercial agreement and handoff","Signed terms, handoff pack, named client sponsor"],
+  ["Objectives and success plan","Client goals, volume plan, milestone dates agreed"],
+  ["KYB and compliance review","Entity documents, ownership, sanctions and risk review"],
+  ["Regulatory and partner approvals","Where applicable. Product, jurisdiction or partner approvals that only some clients require"],
+  ["Technical integration","Client integrates through an API, the Bakkt Widget, or another approved method"],
+  ["Finance and treasury setup","Funding accounts, prefunding, reconciliation and fee setup"],
+  ["Integration testing","End-to-end tests in the sandbox, edge cases, failure handling"],
+  ["Client training","Trading, operations and support teams trained on live workflow"],
+  ["Production approval","Internal sign-offs, limits set, go-live checklist cleared"],
+  ["First live transaction","First settled transaction in production"],
+  ["Adoption and volume ramp","Growth against agreed usage or transaction targets"]
+];
+
+var CLIENTS = [
+  {
+    id:"meridian",
+    name:"Meridian Pay",
+    sub:"Singapore. Digital asset payments company entering the U.S. market",
+    stageIdx:6,
+    stageName:"Integration testing",
+    targetLive:"Target Nov 12, 2026",
+    days:28, overdue:true,
+    blocker:"API migration to the approved U.S. operating model",
+    blockerOwner:"Bakkt engineering",
+    health:"a", healthTxt:"Watch",
+    live:0, plan:40,
+    products:[["Cross-border payments","Contracted"],["Stablecoin on/off-ramp","Contracted"]],
+    renewal:"Initial term begins at launch",
+    goal:"Meridian moves payments for enterprise clients across South Asia and the Gulf and wants to serve U.S.-originated flow without building its own state licensing footprint. It needs corporate onboarding, a stablecoin integration, U.S. dollar funding rails, a U.S. launch, then two additional corridors within six months.",
+    kpis:[["Gate","7 of 11"],["Days in gate","28"],["Target monthly TTV","$40M"],["Corridors at launch","1"]],
+    stages:[
+      {s:"complete",date:"Jun 2, 2026",owner:"Sales, Client Success",note:"Handoff call held with the sales lead. Client sponsor is the COO, who also owns their internal launch plan."},
+      {s:"complete",date:"Jun 10, 2026",owner:"Client Success",note:"Success plan agreed: U.S. launch, then Gulf corridor, then a second South Asia corridor. The target was built from client-provided forecasts for its existing enterprise book."},
+      {s:"complete",date:"Jul 8, 2026",owner:"Compliance",note:"Entity, ownership and sanctions review cleared in 28 days, after two rounds of follow-up on beneficial ownership documents."},
+      {s:"complete",date:"Jul 24, 2026",owner:"Legal, Compliance",note:"Structure approved for this scenario: Meridian uses Bakkt's regulated infrastructure, which reduces the need for its own state-by-state footprint. That was their reason for choosing this route."},
+      {s:"complete",date:"Aug 21, 2026",owner:"Client engineering",note:"Client completed its build against the integration framework in four weeks, ahead of the plan date."},
+      {s:"complete",date:"Aug 26, 2026",owner:"Finance, Treasury",note:"Funding accounts opened, prefunding levels agreed, reconciliation file format confirmed with their finance team."},
+      {s:"blocked",date:"Target Oct 9, 2026",owner:"Bakkt engineering",note:"Testing is paused. The client built against an earlier API surface, and the integration changes required to implement the approved U.S. transaction flow alter two endpoint signatures their payment initiation depends on.",
+       detail:{out:"Updated integration package, a migration note covering the two changed endpoints, and a re-run of the settlement failure test suite.",
+               update:"Told the client on September 15 that this shifts their testing window by roughly two weeks and that the November 12 launch date still holds. Offered a joint working session with engineering rather than a document handoff.",
+               esc:"Raised to the Head of Client Success on September 15. This moves a date the client has given its own board, which is the escalation trigger.",
+               next:"Working session on September 25. Confirm in writing the same day whether November 12 survives, rather than letting the client infer it."}},
+      {s:"pending",date:"Target Oct 16, 2026",owner:"Client Success",note:"Two sessions planned, operations and payments support. Materials drafted, held until the testing date firms up."},
+      {s:"pending",date:"Target Oct 28, 2026",owner:"Compliance, Operations",note:"Go-live checklist, transaction limits and monitoring thresholds to be set before approval."},
+      {s:"pending",date:"Target Nov 12, 2026",owner:"Client Success, Operations",note:"First settled payment, watched live with the client's operations team on the call."},
+      {s:"pending",date:"Q1 2027",owner:"Client Success",note:"Ramp against the agreed plan, then the corridor expansion conversation."}
+    ]
+  },
+  {
+    id:"kestrel",
+    name:"Kestrel Remit",
+    sub:"UAE. Enterprise cross-border payment flows into South Asia",
+    stageIdx:2,
+    stageName:"KYB and compliance review",
+    targetLive:"Target Q1 2027",
+    days:46, overdue:true,
+    blocker:"Beneficial ownership attestations outstanding",
+    blockerOwner:"Client",
+    health:"r", healthTxt:"At risk",
+    live:0, plan:25,
+    products:[["Cross-border payments","Contracted"]],
+    renewal:"Initial term begins at launch",
+    goal:"Kestrel wants regulated rails for an existing corridor business currently running through correspondent banking. The commercial case is strong. The onboarding is not moving, and the reason sits on their side.",
+    kpis:[["Gate","3 of 11"],["Days in gate","46"],["Target monthly TTV","$25M"],["Days past target","24"]],
+    stages:[
+      {s:"complete",date:"Jul 30, 2026",owner:"Sales, Client Success",note:"Sponsor is the Head of Operations, who has limited authority over the entity documents this gate needs."},
+      {s:"complete",date:"Aug 8, 2026",owner:"Client Success",note:"Objectives agreed, one corridor at launch with a second under discussion."},
+      {s:"blocked",date:"Target Aug 30, 2026",owner:"Client legal",note:"Compliance needs beneficial ownership attestations for two holding entities. Three requests sent, two partial responses. Our sponsor cannot get their own legal team to prioritize it.",
+       detail:{out:"Attestations for two holding entities and one corrected corporate registry extract.",
+               update:"Told them on September 11 that the Q1 window narrows if this is not cleared by month end, framed as corridor revenue they are not earning.",
+               esc:"Nothing is blocked on Bakkt, so the escalation that matters is on their side. Asked our sponsor for an introduction to their General Counsel.",
+               next:"Call with their General Counsel on September 24. If that does not happen, recommend moving the account to a paused state rather than carrying a target date nobody believes."}},
+      {s:"pending",date:"To be scheduled",owner:"Legal, Compliance",note:""},
+      {s:"pending",date:"To be scheduled",owner:"Client engineering",note:"Client engineering capacity is reserved but will be released if this slips another quarter."},
+      {s:"pending",date:"To be scheduled",owner:"Finance, Treasury",note:""},
+      {s:"pending",date:"To be scheduled",owner:"Bakkt engineering",note:""},
+      {s:"pending",date:"To be scheduled",owner:"Client Success",note:""},
+      {s:"pending",date:"To be scheduled",owner:"Compliance, Operations",note:""},
+      {s:"pending",date:"To be scheduled",owner:"Client Success, Operations",note:""},
+      {s:"pending",date:"To be scheduled",owner:"Client Success",note:""}
+    ]
+  },
+  {
+    id:"arbor",
+    name:"Arbor Financial",
+    sub:"U.S. fintech. Embedded finance partner on Bakkt Agent",
+    stageIdx:4,
+    stageName:"Technical integration",
+    targetLive:"Target Q4 2026",
+    days:17, overdue:false,
+    blocker:"External issuing partner approval for the card program",
+    blockerOwner:"External partner",
+    health:"a", healthTxt:"Watch",
+    live:0, plan:0,
+    products:[["Bakkt Agent embedded finance","Contracted"],["Co-branded card program","Planned"]],
+    ttvNote:"N/A, measured by MAUs",
+    renewal:"Initial term begins at launch",
+    goal:"Arbor is embedding accounts, payments and international transfers inside its own app. Success here is end users activated after launch, not transacting volume, so the plan tracks launch readiness and their onboarding funnel.",
+    kpis:[["Gate","5 of 11"],["Days in gate","17"],["Target","Q4 launch"],["Measured in","Active users"]],
+    stages:[
+      {s:"complete",date:"Jul 10, 2026",owner:"Sales, Client Success",note:"Handoff with the partnerships lead. Sponsor is Arbor's VP of Product."},
+      {s:"complete",date:"Jul 17, 2026",owner:"Client Success",note:"Built around activated end users after launch, with an agreed onboarding funnel. Volume is a lagging indicator here."},
+      {s:"complete",date:"Jul 28, 2026",owner:"Compliance",note:"Cleared in 11 days. Arbor is a known regulated entity with clean documentation."},
+      {s:"complete",date:"Sep 6, 2026",owner:"Legal, Compliance, issuing partner",note:"Embedded accounts module confirmed. The card program carries a separate external approval, which is why this gate applies here."},
+      {s:"active",date:"Target Oct 16, 2026",owner:"Client engineering",note:"Accounts and payments are integrating well. The card program depends on an external issuing approval outside both our timelines.",
+       detail:{out:"Issuing partner approval for the co-branded card program, plus Arbor's in-app onboarding flow for end-user verification.",
+               update:"Told Arbor on September 15 that accounts and transfers can launch independently of the card program, so they are not holding their whole release for one module.",
+               esc:"Flagged to product. Three partners are now waiting on the same external dependency.",
+               next:"Confirm with Arbor by September 26 whether they split the release. Their answer changes their launch date and their activation plan."}},
+      {s:"pending",date:"Target Oct 30, 2026",owner:"Finance, Treasury",note:""},
+      {s:"pending",date:"Target Nov 12, 2026",owner:"Bakkt engineering",note:""},
+      {s:"pending",date:"Target Nov 20, 2026",owner:"Client Success",note:"Training here is for Arbor's support team, since their users will contact them first, not us."},
+      {s:"pending",date:"Target Dec 1, 2026",owner:"Compliance, Operations",note:""},
+      {s:"pending",date:"Q4 2026",owner:"Client Success, Operations",note:""},
+      {s:"pending",date:"Q1 2027",owner:"Client Success",note:"Ramp measured in activated users per month against the funnel agreed at gate two."}
+    ]
+  },
+  {
+    id:"halcyon",
+    name:"Halcyon Digital Markets",
+    sub:"U.S. proprietary trading firm on trading infrastructure and OTC",
+    stageIdx:10,
+    stageName:"Adoption and volume ramp",
+    targetLive:"Live since Apr 3, 2026",
+    days:0, overdue:false,
+    blocker:"One desk still routing OTC block trades bilaterally",
+    blockerOwner:"Client",
+    health:"g", healthTxt:"Healthy",
+    live:18.4, plan:22,
+    products:[["Trading infrastructure","Live"],["Digital asset OTC","Live"],["Stablecoin settlement","Pilot"]],
+    renewal:"Mar 31, 2027",
+    goal:"Halcyon consolidated three counterparty relationships into one integration. Two quarters live, growing, and running at 84 percent of its volume target. The gap is one desk that has not moved its OTC block flow, which is an internal risk sign-off on their side rather than anything we control. Renewal is at the end of March, so the case gets made at the December review.",
+    kpis:[["Gate","Live"],["Monthly TTV","$18.4M"],["Target","$22.0M"],["Renewal","Mar 31, 2027"]],
+    stages:[
+      {s:"complete",date:"Jan 9, 2026",owner:"Sales, Client Success",note:""},
+      {s:"complete",date:"Jan 16, 2026",owner:"Client Success",note:"Four goals agreed, three met as of the current review."},
+      {s:"complete",date:"Feb 5, 2026",owner:"Compliance",note:""},
+      {s:"na",date:"Not applicable",owner:"Legal, Compliance",note:"A domestic proprietary trading firm using trading infrastructure and OTC did not require the additional product or partner approvals this gate covers. Marked not applicable rather than left open, so the tracker does not imply work that was never needed."},
+      {s:"complete",date:"Mar 6, 2026",owner:"Client engineering",note:""},
+      {s:"complete",date:"Mar 13, 2026",owner:"Finance, Treasury",note:"Prefunding ceiling agreed with their treasurer, later reduced once settlement times proved out."},
+      {s:"complete",date:"Mar 24, 2026",owner:"Bakkt engineering",note:""},
+      {s:"complete",date:"Mar 30, 2026",owner:"Client Success",note:"62 users trained across two desks, plus a follow-up session for operations."},
+      {s:"complete",date:"Apr 2, 2026",owner:"Compliance, Operations",note:""},
+      {s:"complete",date:"Apr 3, 2026",owner:"Client Success, Operations",note:"First settled ticket, watched live with their operations team."},
+      {s:"active",date:"Current",owner:"Client Success",note:"Third consecutive month of growth, running at 84 percent of target, with renewal six months out.",
+       detail:{out:"The second desk's remaining OTC block flow, which is the whole gap to target.",
+               update:"Covered at the quarterly review on September 9. Their CRO owns the sign-off and has committed to November.",
+               esc:"None. This is a client internal process and pushing harder would cost more than it gains.",
+               next:"Support their internal risk paper with settlement data, then open the renewal and next year volume plan together at the December review."}}
+    ]
+  },
+  {
+    id:"sentinel",
+    name:"Sentinel Commodities",
+    sub:"Switzerland. Physical energy trading house, early discovery",
+    stageIdx:1,
+    stageName:"Objectives and success plan",
+    targetLive:"Target H1 2027",
+    days:18, overdue:false,
+    blocker:"Scope not yet defined",
+    blockerOwner:"Joint",
+    health:"g", healthTxt:"On track",
+    live:0, plan:0,
+    products:[["Scope not yet defined","Discovery"]],
+    renewal:"Initial term begins at launch",
+    goal:"Sentinel settles a large recurring supplier book across several jurisdictions and is exploring whether stablecoin settlement shortens its payment cycle. Early, volume not yet defined, and in the portfolio because recurring commodity flows reward patient onboarding work.",
+    kpis:[["Gate","2 of 11"],["Days in gate","18"],["Target monthly TTV","To be defined"],["Horizon","H1 2027"]],
+    stages:[
+      {s:"complete",date:"Sep 5, 2026",owner:"Sales, Client Success",note:"Commercial agreement completed following two discovery calls. Handoff made to Client Success."},
+      {s:"active",date:"Target Oct 16, 2026",owner:"Client Success",note:"Mapping their settlement cycle before proposing anything. Treasury, not the trading desk, is the real sponsor.",
+       detail:{out:"Their current payment cycle timings, counterparty mix by jurisdiction, and the internal approval path for changing a settlement process.",
+               update:"Agreed on September 12 to come back with a written view of where days could come out of their cycle.",
+               esc:"None required.",
+               next:"Session with their treasury team on September 25. The goal is a defined use case and success plan, not an additional product commitment."}},
+      {s:"pending",date:"To be scheduled",owner:"Compliance",note:""},
+      {s:"pending",date:"To be scheduled",owner:"Legal, Compliance",note:""},
+      {s:"pending",date:"To be scheduled",owner:"Client engineering",note:""},
+      {s:"pending",date:"To be scheduled",owner:"Finance, Treasury",note:""},
+      {s:"pending",date:"To be scheduled",owner:"Bakkt engineering",note:""},
+      {s:"pending",date:"To be scheduled",owner:"Client Success",note:""},
+      {s:"pending",date:"To be scheduled",owner:"Compliance, Operations",note:""},
+      {s:"pending",date:"To be scheduled",owner:"Client Success, Operations",note:""},
+      {s:"pending",date:"To be scheduled",owner:"Client Success",note:""}
+    ]
+  }
+];
+
+var ACTIONS = [
+  {item:"Migration note for two changed endpoints on the approved U.S. flow",acct:"Meridian Pay",owner:"Engineering",exp:"Testing window moves about two weeks, launch date unchanged for now",date:"Sep 25",esc:"Head of Client Success",closed:"Pending",cls:"a"},
+  {item:"Beneficial ownership attestations for two holding entities",acct:"Kestrel Remit",owner:"Compliance",exp:"Q1 launch narrows if not cleared by the end of September",date:"Sep 30",esc:"Client-side only",closed:"Pending",cls:"r"},
+  {item:"External issuing partner approval for the card program",acct:"Arbor Financial",owner:"Product",exp:"Accounts and transfers can launch without the card module",date:"Sep 26",esc:"Product, pattern across three partners",closed:"Pending",cls:"a"},
+  {item:"Prefunding ceiling review after settlement times improved",acct:"Halcyon Digital Markets",owner:"Treasury",exp:"Lower ceiling proposed, client treasurer to confirm",date:"Oct 6",esc:"None",closed:"Pending",cls:"n"},
+  {item:"Settlement exception on two tickets during the August volatility event",acct:"Halcyon Digital Markets",owner:"Operations",exp:"Root cause shared, staffing pattern raised internally",date:"Closed Aug 12",esc:"None",closed:"Completed Aug 12",cls:"g"},
+  {item:"Reconciliation file format request for a multi-entity structure",acct:"Sentinel Commodities",owner:"Product",exp:"Under evaluation, no commitment given",date:"Review in Q4",esc:"None",closed:"Interim answer sent",cls:"n"}
+];
+
+var FALLBACK = {
+  complete:"Completed. No additional notes recorded.",
+  pending:"Not started. Sequenced after the preceding gates.",
+  active:"In progress.",
+  blocked:"Blocked. See outstanding items below.",
+  na:"Not applicable to this client."
+};
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+function renderRail(){
+  var counts = {};
+  CLIENTS.forEach(function(c){counts[c.stageIdx] = (counts[c.stageIdx]||0)+1;});
+  var html = '<div class="rail-inner">';
+  GATES.forEach(function(g,i){
+    var n = counts[i]||0;
+    html += '<div class="gate'+(n?' has':'')+'">'
+      + '<div class="gate-bar"></div>'
+      + '<div class="gate-n">'+(i+1)+'</div>'
+      + '<div class="gate-label">'+esc(g[0])+'</div>'
+      + '<div class="gate-count">'+(n? n+' account'+(n>1?'s':'') : '<span>0</span>')+'</div>'
+      + '</div>';
+  });
+  html += '</div>';
+  document.getElementById('rail').innerHTML = html;
+}
+
+function tags(list){
+  return '<div class="tags">'+list.map(function(t){
+    var cls = t[1]==='Live' ? ' live' : (t[1]==='Pilot' ? ' pilot' : '');
+    return '<div class="tag'+cls+'">'+esc(t[0])+'<i>'+esc(t[1])+'</i></div>';
+  }).join('')+'</div>';
+}
+
+function renderPortfolio(){
+  var tb = document.querySelector('#portfolio-table tbody');
+  tb.innerHTML = CLIENTS.map(function(c){
+    var ttv = c.ttvNote ? c.ttvNote
+            : (c.live>0 ? '$'+c.live.toFixed(1)+'M / $'+c.plan.toFixed(1)+'M'
+            : (c.plan>0 ? '$0 / $'+c.plan.toFixed(1)+'M' : 'Not yet defined'));
+    return '<tr class="row-click" data-id="'+c.id+'" tabindex="0">'
+      + '<td><span class="acct">'+esc(c.name)+'<small>'+esc(c.sub)+'</small></span></td>'
+      + '<td>'+esc(c.stageName)+'</td>'
+      + '<td class="num">'+esc(c.targetLive)+'</td>'
+      + '<td><span class="days'+(c.overdue?' over':'')+'">'+(c.days?c.days:'-')+'</span></td>'
+      + '<td>'+esc(c.blocker)+'</td>'
+      + '<td class="owner">'+esc(c.blockerOwner)+'</td>'
+      + '<td><span class="pill '+c.health+'">'+esc(c.healthTxt)+'</span></td>'
+      + '<td class="num">'+ttv+'</td>'
+      + '<td>'+tags(c.products)+'</td>'
+      + '<td class="owner">'+esc(c.renewal)+'</td>'
+      + '</tr>';
+  }).join('');
+
+  Array.prototype.forEach.call(tb.querySelectorAll('tr'),function(tr){
+    function go(){ selectTab('p-activation'); showClient(tr.getAttribute('data-id')); window.scrollTo(0,0); }
+    tr.addEventListener('click',go);
+    tr.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();go();} });
+  });
+}
+
+function renderSelector(activeId){
+  document.getElementById('selector').innerHTML = CLIENTS.map(function(c){
+    return '<button class="chip" data-id="'+c.id+'" aria-pressed="'+(c.id===activeId)+'">'+esc(c.name)+'</button>';
+  }).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('#selector .chip'),function(b){
+    b.addEventListener('click',function(){ showClient(b.getAttribute('data-id')); });
+  });
+}
+
+function showClient(id){
+  var c = CLIENTS.filter(function(x){return x.id===id;})[0];
+  if(!c) return;
+  renderSelector(id);
+
+  document.getElementById('summary').innerHTML =
+    '<div class="summary">'
+    + '<h3>'+esc(c.name)+'</h3>'
+    + '<div class="meta">'+esc(c.sub)+' &nbsp;/&nbsp; '+esc(c.targetLive)+'</div>'
+    + '<p class="goal">'+esc(c.goal)+'</p>'
+    + '<div class="kpis">'+c.kpis.map(function(k){
+        return '<div><div class="kpi-l">'+esc(k[0])+'</div><div class="kpi-v">'+esc(k[1])+'</div></div>';
+      }).join('')+'</div>'
+    + '</div>';
+
+  var html = '';
+  c.stages.forEach(function(st,i){
+    var g = GATES[i];
+    var pillCls = st.s==='complete'?'g':(st.s==='blocked'?'r':(st.s==='active'?'a':'n'));
+    var pillTxt = st.s==='complete'?'Complete':(st.s==='blocked'?'Blocked':(st.s==='active'?'In progress':(st.s==='na'?'Not applicable':'Not started')));
+    var d = st.detail;
+    var body = st.note ? '<p style="margin:14px 0 0;max-width:80ch">'+esc(st.note)+'</p>'
+                       : '<p style="margin:14px 0 0;color:var(--muted)">'+esc(FALLBACK[st.s])+'</p>';
+    html += '<div class="stage st-'+st.s+'">'
+      + '<button class="stage-btn" type="button" aria-expanded="false">'
+      +   '<span class="stage-idx"><span class="marker"></span> '+(i+1)+'</span>'
+      +   '<span class="stage-name">'+esc(g[0])+'<em>'+esc(g[1])+'</em></span>'
+      +   '<span><span class="pill '+pillCls+'">'+pillTxt+'</span> <span class="num" style="color:var(--muted);margin-left:8px">'+esc(st.date)+'</span></span>'
+      + '</button>'
+      + '<div class="stage-detail">'
+      +   body
+      +   '<dl class="dl">'
+      +     '<dt>Owner</dt><dd>'+esc(st.owner)+'</dd>'
+      +     (d? '<dt>Outstanding</dt><dd>'+esc(d.out)+'</dd>'
+      +         '<dt>Last told client</dt><dd>'+esc(d.update)+'</dd>'
+      +         '<dt>Escalation</dt><dd>'+esc(d.esc)+'</dd>'
+      +         '<dt>Next action</dt><dd class="next">'+esc(d.next)+'</dd>' : '')
+      +   '</dl>'
+      + '</div>'
+      + '</div>';
+  });
+  document.getElementById('stages').innerHTML = html;
+
+  Array.prototype.forEach.call(document.querySelectorAll('#stages .stage-btn'),function(btn){
+    btn.addEventListener('click',function(){
+      var st = btn.parentNode;
+      var open = st.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open?'true':'false');
+    });
+  });
+
+  var live = document.querySelectorAll('#stages .st-blocked, #stages .st-active');
+  if(live.length){
+    live[0].classList.add('open');
+    live[0].querySelector('.stage-btn').setAttribute('aria-expanded','true');
+  }
+
+}
+
+function renderActions(){
+  document.querySelector('#action-table tbody').innerHTML = ACTIONS.map(function(a){
+    return '<tr>'
+      + '<td>'+esc(a.item)+'</td>'
+      + '<td class="owner">'+esc(a.acct)+'</td>'
+      + '<td>'+esc(a.owner)+'</td>'
+      + '<td>'+esc(a.exp)+'</td>'
+      + '<td class="num">'+esc(a.date)+'</td>'
+      + '<td class="owner">'+esc(a.esc)+'</td>'
+      + '<td><span class="pill '+a.cls+'">'+esc(a.closed)+'</span></td>'
+      + '</tr>';
+  }).join('');
+}
+
+function selectTab(panelId){
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(t){
+    var on = t.getAttribute('data-panel')===panelId;
+    t.setAttribute('aria-selected', on?'true':'false');
+    document.getElementById(t.getAttribute('data-panel')).hidden = !on;
+  });
+}
+
+Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(t){
+  t.addEventListener('click',function(){ selectTab(t.getAttribute('data-panel')); });
+});
+
+renderRail();
+renderPortfolio();
+showClient('meridian');
+renderActions();
+</script>
+</body>
+</html>
